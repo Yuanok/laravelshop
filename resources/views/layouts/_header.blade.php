@@ -23,8 +23,9 @@ aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle 
                 <img src="https://iocaffcdn.phphub.org/uploads/images/201709/20/1/PtDKbASVcz.png?imageView2/1/w/60/h/60" alt="" class="img-responsive img-circle" width="30px" height="30px">
                 {{ Auth::user()->name}}
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                <a href="#" id="logout" class="dropdown-item">退出登录</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown" >
+                <a href="{{ route('user_addresses.index') }}" class="dropdown-item">收货地址</a>
+                <a href="#" id="logout" class="dropdown-item" onclick="event.preventDefault();document.getElementById('logout-form').submit();">退出登录</a>
                 <form action=" {{ route('logout') }}" id="logout-form" style="display:none" method="post">{{ csrf_field()}}</form>
             </div>
         </li>
