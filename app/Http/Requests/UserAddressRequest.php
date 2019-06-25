@@ -30,15 +30,15 @@ class UserAddressRequest extends FormRequest
         ];
     }
 
-    public function messages(){
+    public function attributes(){
         return [
-            'province.required' => '省 不能为空',
-            'city.required' => '市 不能为空',
-            'district.required' => '区 不能为空',
-            'zip.required' => '邮编 不能为空',
-            'address.required' => '地址 不能为空',
-            'contact_name.required' => '联系人 不能为空',
-            'contact_phone.required' => '电话 不能为空',
+            'province'      => '省',
+            'city'          => '城市',
+            'district'      => '地区',
+            'address'       => '详细地址',
+            'zip'           => '邮编',
+            'contact_name'  => '姓名',
+            'contact_phone' => '电话',
         ];
     }
 }
