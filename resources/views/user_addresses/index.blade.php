@@ -5,7 +5,9 @@
     <row>
         <div class="col-md-10 offset-md-1">
         <div class="card panel-default">
-            <div class="card-header">收货地址</div>
+            <div class="card-header">收货地址
+            <a href="{{route('user_addresses.create')}}" class="float-right">新建收货地址</a>
+            </div>
             <div class="card-body">
                 <table class="table table-bordered table-striped">
                     <thead>
@@ -36,4 +38,4 @@
         </div>    
         </div>
     </row>
-@stop
+@endsection
