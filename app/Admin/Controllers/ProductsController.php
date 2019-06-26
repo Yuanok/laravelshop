@@ -53,7 +53,7 @@ class ProductsController extends Controller
     public function edit($id, Content $content)
     {
         return $content
-            ->header('Edit')
+            ->header('编辑商品')
             ->description('description')
             ->body($this->form()->edit($id));
     }
@@ -67,7 +67,7 @@ class ProductsController extends Controller
     public function create(Content $content)
     {
         return $content
-            ->header('Create')
+            ->header('创建商品')
             ->description('description')
             ->body($this->form());
     }
@@ -143,15 +143,21 @@ class ProductsController extends Controller
     {
         $form = new Form(new Product);
 
-        $form->text('title', 'Title');
-        $form->textarea('description', 'Description');
-        $form->image('image', 'Image');
-        $form->switch('on_sale', 'On sale')->default(1);
-        $form->decimal('rating', 'Rating')->default(5.00);
-        $form->number('sold_count', 'Sold count');
-        $form->number('review_count', 'Review count');
-        $form->decimal('price', 'Price');
+        $form->text('title', '商品名称')->rules('required');
+        $form->image('image', '图片')->rules('required|image');
+        $form->editor('description', '商品描述')->rules('required');
+        $form->radio('on_sale', '是否上架')->options(['1'=>'是','2'=>'否'])->default(1);
 
+        $form->hasMany('skus','商品SKU',function(Form\NestedForm $form){
+            $form->text('title','sku名称')->rules('required');
+            $form->text('description','sku描述')->rules('required');
+            $form->text('stock','库存')->rules('required|integer|min:0');
+            $form->text('price','最低价格')->rules('required|numeric|min:0.01');
+        });
+
+        $form->saving(function(Form $form){
+            $form->model()->price = collect($form->input('skus'))->where(Form::REMOVE_FLAG_NAME,0)->min('price')?:0;
+        });
         return $form;
     }
 }
